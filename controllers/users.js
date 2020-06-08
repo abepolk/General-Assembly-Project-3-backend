@@ -35,4 +35,14 @@ router.delete('/:id/delete', async (req, res) =>{
     }
 })
 
+router.put('/:id/update', async (req, res) =>{
+    try{
+        console.log(req.body);
+        const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body);
+        res.status(200).json(updatedUser);
+    }catch(error){
+        res.status(400).json(error);
+    }
+})
+
 module.exports = router;
