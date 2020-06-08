@@ -1,4 +1,7 @@
-# bookmarkd
-An app to bookmark web links
+# General Assembly Project 3 Backend
+An app to for users to create contacts that they are networking with
 
-Jon Rhymes
+backend includes: controllers, models, and server.js
+
+Abe Polk
+Ryan Ross
