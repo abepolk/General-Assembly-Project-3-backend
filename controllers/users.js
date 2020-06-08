@@ -4,7 +4,7 @@ const User = require('../models/users.js');
 
 
 
-router.get('/test', async (req, res) =>{
+router.get('/', async (req, res) =>{
     try{
         const users = await User.find({});
         res.status(200).json(users);
@@ -12,6 +12,8 @@ router.get('/test', async (req, res) =>{
         res.status(400).json(error);
     }
 })
+
+
 router.post('/create', async (req, res) =>{
     try{
         console.log(req.body);

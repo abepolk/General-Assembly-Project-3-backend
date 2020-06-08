@@ -30,5 +30,5 @@ app.use('/users/', userController);
 
 
 app.listen(PORT, () =>{
-    console.log('Mongoose runningo n port ' + PORT);
+    console.log('Mongoose running on port ' + PORT);
 })
