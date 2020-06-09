@@ -27,15 +27,16 @@ const userController = require('./controllers/users.js');
 
 ////// authorize function 
 const auth = (req, res, next) =>{
-    const {authorization} = req.headers
+const {authorization} = req.headers
     if(authorization){
         const token = authorization.split(' ')[1]
+        console.log('TOKEN EQUALS ' + token);
         const result = jwt.verify(token, SECRET);
         req.user = result;
-        console.log('req.user = result ' + req.user);
-        next()
+        console.log('REQ.USER = result ' + req.user);
+        next();
     }else{
-        res.send('No Token');
+        res.send('No Tokens ever');
     }
 }
 
@@ -56,16 +57,23 @@ app.use(express.json());
 const user = {username: 'Phil', password: 'p'}
 
 ///// auth route
-app.post('/login', (req, res) =>{
+app.post('/login', async (req, res) =>{
     const {username, password} = req.body;
     if(username === user.username & password === user.password){
         const token = jwt.sign({username}, SECRET);
-        res.json(token);
+        console.log(jwt.verify(token, SECRET));
+        await res.json(token);
+        
     }else{
         res.send('wrong username or password')
     }
 })
 
+
+///// test route
+app.get('/test', auth, (req, res) =>{
+    res.send('It Works!')
+})
 
 app.listen(PORT, () =>{
     console.log('Mongoose running on port ' + PORT);
