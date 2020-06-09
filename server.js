@@ -72,7 +72,7 @@ app.post('/login', async (req, res) =>{
 
 ///// test route
 app.get('/test', auth, (req, res) =>{
-    res.send('It Works!')
+    res.send(req.user);
 })
 
 app.listen(PORT, () =>{
