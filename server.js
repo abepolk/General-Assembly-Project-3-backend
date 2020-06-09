@@ -17,7 +17,6 @@ console.log(decoded);
 
 
 
-app.use(cors());
 
 /////// Globals
 const userController = require('./controllers/users.js');
@@ -52,6 +51,8 @@ app.use(express.json());
 /////// middleware
 app.use('/users/', userController);
 app.use(express.json());
+app.use(cors());
+
 
 /////// dummy user
 const user = {username: 'Phil', password: 'p'}
