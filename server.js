@@ -21,6 +21,7 @@ app.use(cors());
 
 /////// Globals
 const userController = require('./controllers/users.js');
+const contactsController = require('./controllers/contacts.js');
 
 
 
@@ -51,6 +52,7 @@ app.use(express.json());
 
 /////// middleware
 app.use('/users/', userController);
+app.use('/contacts/', contactsController);
 app.use(express.json());
 
 /////// dummy user
