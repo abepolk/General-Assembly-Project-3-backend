@@ -55,24 +55,6 @@ app.use('/contacts/', contactsController);
 app.use(express.json());
 app.use(cors());
 
-
-/////// dummy user
-const user = {username: 'Phil', password: 'p'}
-
-///// auth route
-app.post('/login', async (req, res) =>{
-    const {username, password} = req.body;
-    if(username === user.username & password === user.password){
-        const token = jwt.sign({username}, SECRET);
-        console.log(jwt.verify(token, SECRET));
-        await res.json(token);
-        
-    }else{
-        res.send('wrong username or password')
-    }
-})
-
-
 ///// test route
 app.get('/test', auth, (req, res) =>{
     res.send(req.user);
