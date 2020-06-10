@@ -3,7 +3,7 @@ const app = express();
 const mongoose = require('mongoose');
 require('dotenv').config();
 const {SECRET, PORT} = process.env;
-const MONGODB_URI = process.env.MONGODB_URI /// || mongodb://localhost:27017;
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017'
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const token = jwt.sign({cheese: 'gouda'}, SECRET)
@@ -11,7 +11,6 @@ console.log(token);
 
 
 const decoded = jwt.verify(token, SECRET);
-
 console.log(decoded);
 
 
