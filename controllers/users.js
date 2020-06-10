@@ -19,7 +19,7 @@ router.post('/', (req, res) => {
             console.log(jwt.verify(token, process.env.SECRET));
             res.status(200).json(token);
           } else {
-              res.('Wrong Password');
+              res.send('Wrong Password');
           }
       }
   });
