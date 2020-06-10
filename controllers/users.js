@@ -15,6 +15,7 @@ router.post('/', (req, res) => {
           //compare passwords
           if (bcrypt.compareSync(req.body.password, user.password)) {
             const token = jwt.sign({username: user.username}, process.env.SECRET);
+            console.log(token)
             console.log(jwt.verify(token, process.env.SECRET));
             res.json(token);
           } else {
@@ -25,27 +26,25 @@ router.post('/', (req, res) => {
 });
 
 
-// router.post('/new', (req, res) => {
-//   //// req.body.password = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10));
-//   User.create(req.body, (error, user) => {
-//     if (error) {
-//       console.error(error);
-//     } else {
-//       let createdUser = json(req.body);
-//       return createdUser;
-//     }
-//   });
-//   res.json(createdUser)
-// });
-router.post('/new', async (req, res) =>{
-  try{
-    const createdUser = await User.create(req.body);
-    res.status(200).json(createdUser);
-  }catch(error){
-    console.log(error);
-    res.status(400).json(error);
-  }
-})
+router.post('/new', (req, res) => {
+  req.body.password = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10));
+  User.create(req.body, (error, user) => {
+    if (error) {
+      console.error(error);
+    } else {
+      res.send(user);
+    }  });
+});
+
+// router.post('/new', async (req, res) =>{
+//   try{
+//     const createdUser = await User.create(req.body);
+//     res.status(200).json(createdUser);
+//   }catch(error){
+//     console.log(error);
+//     res.status(400).json(error);
+//   }
+// })
 
 // Remove user account functionality
 
