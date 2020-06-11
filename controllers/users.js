@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const router = express.Router();
 const User = require('../models/users.js');
 
-router.post('/', (req, res) => {
+router.get('/', (req, res) => {
   //See if user exists
   User.findOne({ username: req.body.username }, (error, user) => {
       if (error) {
@@ -46,6 +46,7 @@ router.post('/new', (req, res) => {
 //     res.status(400).json(error);
 //   }
 // })
+
 
 // Remove user account functionality
 
