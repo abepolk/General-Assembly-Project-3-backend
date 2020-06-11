@@ -6,13 +6,16 @@ const jwt = require('jsonwebtoken');
 const auth = async (req, res, next) => {
     const {authorization} = req.headers;
     if (authorization) {
+        const token = authorization.split(' ')[1];  
         try {
-            const token = authorization.split(' ')[1];  
-            const payload = jwt.verify(token, process.env.SECRET);
+            const payload = await jwt.verify(token, process.env.SECRET);
+            //store the payload (username) in the request object
             req.user = payload;
+            //go to the route
             next();
-        } catch(error) {
-            res.status(400).json(error);
+        } catch {
+            //if fail verify, send error code
+            return res.sendStatus(403);
         }
     } else {
         res.send("no auth header");
