@@ -22,7 +22,7 @@ const auth = async (req, res, next) => {
     }
 };
 
-router.post('/', auth, async (req, res) => {
+router.post('/new', auth, async (req, res) => {
     try {
         const createdContact = await Contact.create(req.body);
         res.send(createdContact);
