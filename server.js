@@ -48,9 +48,23 @@ db.on('disconnected', ()=> console.log('Connection destroyed'));
 
 app.use(express.json());
 
+const whitelist = [
+    'http://localhost:1985',
+    // Put heroku backend here
+];
+
+const corsOptions = {
+    origin: function (origin, callback) {
+        if (whitelist.indexOf(origin) !== -1) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+};
 
 /////// middleware
-app.use(cors());
+app.use(cors()); // TODO put corsOptions in
 app.use('/users/', userController);
 app.use('/contacts/', contactsController);
 app.use(express.json());
