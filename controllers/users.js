@@ -10,7 +10,7 @@ router.post('/', (req, res) => {
       if (error) {
           res.status(400).json(error);
       } else if (!user) {
-          res.send('user does not exist');
+          res.status(404).send('User does not exist');
       } else {
           //compare passwords
           if (bcrypt.compareSync(req.body.password, user.password)) {
@@ -19,7 +19,7 @@ router.post('/', (req, res) => {
             console.log(jwt.verify(token, process.env.SECRET));
             res.status(200).json(token);
           } else {
-              res.send('Wrong Password');
+              res.status(403).send('Wrong Password');
           }
       }
   });
