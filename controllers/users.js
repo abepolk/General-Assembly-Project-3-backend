@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const router = express.Router();
 const User = require('../models/users.js');
 
-router.get('/', (req, res) => {
+router.post('/', (req, res) => {
   //See if user exists
   User.findOne({ username: req.body.username }, (error, user) => {
       if (error) {
