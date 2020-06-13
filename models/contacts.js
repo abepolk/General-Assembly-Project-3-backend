@@ -1,7 +1,7 @@
 const {Schema, model} = require('mongoose');
 const contactSchema = Schema(
     {
-        owner: {type: String, require: true},
+        owner: {type: String, required: true},
         name: {type: String, required: true},
         contactInfo: {
             phone: String,
