@@ -21,24 +21,6 @@ console.log(decoded);
 const userController = require('./controllers/users.js');
 const contactsController = require('./controllers/contacts.js');
 
-
-
-
-////// authorize function 
-const auth = (req, res, next) =>{
-const {authorization} = req.headers
-    if(authorization){
-        const token = authorization.split(' ')[1]
-        console.log('TOKEN EQUALS ' + token);
-        const result = jwt.verify(token, SECRET);
-        req.user = result;
-        console.log('REQ.USER = result ' + req.user);
-        next();
-    }else{
-        res.send('No Tokens ever');
-    }
-}
-
 ///////// mongoDB setup
 const db = mongoose.connection;
 mongoose.connect(MONGODB_URI, {useUnifiedTopology: true, useNewUrlParser: true});
@@ -58,22 +40,17 @@ const corsOptions = {
         if (whitelist.indexOf(origin) !== -1) {
             callback(null, true);
         } else {
+            console.log('origin is: ' + origin)
             callback(new Error('Not allowed by CORS'));
         }
     },
 };
 
 /////// middleware
-app.use(cors()); // TODO put corsOptions in
+app.use(cors(corsOptions)); // TODO put corsOptions in
 app.use('/users/', userController);
 app.use('/contacts/', contactsController);
 app.use(express.json());
-
-
-
-
-/////// dummy user
-const user = {username: 'Phil', password: 'p'}
 
 ///// auth route
 app.post('/login', async (req, res) =>{
@@ -86,12 +63,6 @@ app.post('/login', async (req, res) =>{
     }else{
         res.send('wrong username or password')
     }
-})
-
-
-///// test route
-app.get('/test', auth, (req, res) =>{
-    res.send(req.user);
 })
 
 app.listen(PORT, () =>{
