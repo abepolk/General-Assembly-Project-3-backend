@@ -33,7 +33,7 @@ app.use(express.json());
 
 const whitelist = [
     'http://localhost:1985',
-    // Put heroku backend here
+    'https://naughty-kepler-a57fc4.netlify.app'
 ];
 
 const corsOptions = {
